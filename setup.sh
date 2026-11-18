@@ -9,23 +9,10 @@ sudo apt install -y spotify-client \
     install intellij-idea-community \
     nemo
 
-sudo rm -rf /opt/Postman
-tar -C /tmp/ -xzf <(curl -L https://dl.pstmn.io/download/latest/linux64) && sudo mv /tmp/Postman /opt/
-sudo tee /usr/share/applications/postman.desktop <<END
-[Desktop Entry]
-Encoding=UTF-8
-Name=Postman
-Exec=/opt/Postman/Postman
-Icon=/opt/Postman/app/resources/app/assets/icon.png
-Terminal=false
-Type=Application
-Categories=Development;
-END
-
 # install and setup auto-complete for minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-minikube completion bash | sudo tee /etc/bash_completion.d/minikube >/dev/null && source ~/.bashrc
+minikube completion bash | sudo tee /etc/bash_completion.d/minikube >/dev/null && source "$HOME/.bashrc"
 
 # set nemo as default file manager
 xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search

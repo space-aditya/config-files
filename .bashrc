@@ -85,7 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -116,10 +116,34 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH=$PATH:/usr/local/go/bin:~/go/bin/
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH=$PATH:/opt/blender/
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
 
-export PATH=$PATH:/usr/local/go/bin
-export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# pnpm
+export PNPM_HOME="/home/space/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+. "$HOME/.cargo/env"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source <(kubectl completion bash)
+
+export VAGRANT_DEFAULT_PROVIDER=libvirt
+
+
+[[ -s "/home/space/.gvm/scripts/gvm" ]] && source "/home/space/.gvm/scripts/gvm"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="/home/space/.local/bin:$PATH"
